@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="TaskCommon:war">
+    <output-path>$PROJECT_DIR$/TaskCommon/target</output-path>
+    <root id="archive" name="com.fulln.parents.war">
+      <element id="artifact" artifact-name="TaskCommon:war exploded" />
+    </root>
+  </artifact>
+</component>

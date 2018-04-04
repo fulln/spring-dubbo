@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TaskCommon/TaskAPI/TaskAPI.iml" filepath="$PROJECT_DIR$/TaskCommon/TaskAPI/TaskAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskCommon/TaskCommon.iml" filepath="$PROJECT_DIR$/TaskCommon/TaskCommon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskCommon/TaskConfig/TaskConfig.iml" filepath="$PROJECT_DIR$/TaskCommon/TaskConfig/TaskConfig.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskCommon/TaskCore/TaskCore.iml" filepath="$PROJECT_DIR$/TaskCommon/TaskCore/TaskCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskLogin/TaskLogin.iml" filepath="$PROJECT_DIR$/TaskLogin/TaskLogin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskMongo/TaskMongo.iml" filepath="$PROJECT_DIR$/TaskMongo/TaskMongo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskSecurity/TaskSecurity.iml" filepath="$PROJECT_DIR$/TaskSecurity/TaskSecurity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskService/TaskService.iml" filepath="$PROJECT_DIR$/TaskService/TaskService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskWeb/TaskWeb.iml" filepath="$PROJECT_DIR$/TaskWeb/TaskWeb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/parents.iml" filepath="$PROJECT_DIR$/parents.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TaskCommon/sqlInit/sqlInit.iml" filepath="$PROJECT_DIR$/TaskCommon/sqlInit/sqlInit.iml" />
+    </modules>
+  </component>
+</project>

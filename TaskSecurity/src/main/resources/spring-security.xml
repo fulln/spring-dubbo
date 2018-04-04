@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans  xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+                       http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                        http://www.springframework.org/schema/security
+                        http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http security="none"   pattern="/css/**" />
+    <http pattern="/js" security="none"/>
+    <http pattern="/home/login" security="none"/>
+
+    <http auto-config='true' use-expressions="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
+
+        <intercept-url pattern="/com" access="hasRole('ROLE_USER')"/>
+
+        <form-login
+                login-page="/home/login"
+                authentication-failure-url="/home/login?error=error"
+                login-processing-url="/login"
+                authentication-success-handler-ref="myAuthenticationSuccessHandler"
+                default-target-url="/home/index"
+               />
+
+        <logout
+                invalidate-session="true"
+                logout-url="/logout"
+                logout-success-url="/home/login"
+                delete-cookies="JSESSIONID" />
+        <!--控制会话超时或者无权限访问-->
+        <!--同一个账号 只能登陆一次-->
+        <session-management invalid-session-url="/home/detail" session-authentication-error-url="/jsp/timeout.jsp">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+        </session-management>
+
+        <custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityInterceptor" />
+        <!--控制权限拦截后访问的地址-->
+        <access-denied-handler error-page="/jsp/noreg.jsp" />
+
+        <csrf disabled="true"/>
+    </http>
+
+    <beans:bean id="passwordEncoder"
+          class="org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method="getInstance"/>
+
+    <beans:bean id="myUserDetailsService" class="com.fulln.security.Service.Impl.myUserDetailsServiceImpl">
+    </beans:bean>
+
+    <beans:bean id="myPasswordEncoder" class="com.fulln.security.Encoding.MyPasswordEncoder">
+    </beans:bean>
+
+
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref='myUserDetailsService'>
+            <!--<password-encoder ref="myPasswordEncoder" />  密码加密-->
+        </authentication-provider>
+    </authentication-manager>
+
+    <!--     自定义拦截器进行权限的拦截 -->
+    <beans:bean id="securityInterceptor" class="com.fulln.security.Filter.SecurityInterceptor">
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="accessDecisionManager" ref="mesecurityAccessDecisionManager"/>
+        <beans:property name="securityMetadataSource" ref="secureResourceFilterInvocationDefinitionSource" />
+    </beans:bean>
+
+    <!--     获取访问url对应的所有权限 -->
+    <beans:bean id="secureResourceFilterInvocationDefinitionSource" class="com.fulln.security.Filter.SecureResourceFilterInvocationDefinitionSource" />
+
+    <!--     校验用户的权限是否足够 -->
+    <beans:bean id="mesecurityAccessDecisionManager" class="com.fulln.security.Filter.SecurityAccessDecisionManager" />
+
+    <!--     自定义保存跳转前的路径-->
+    <beans:bean id="loginUrlAuthenticationEntryPoint" class=" com.fulln.security.config.MyLoginUrlAuthenticationEntryPoint">
+        <beans:property name="useForward" value="true" />
+        <beans:constructor-arg value="/home/login"  name="loginFormUrl"/>
+    </beans:bean>
+
+    <!--    自定义登录成功后进行重定向-->
+    <beans:bean id="myAuthenticationSuccessHandler" class="com.fulln.security.config.MyAuthenticationSuccessHandler"/>
+
+</beans:beans>
